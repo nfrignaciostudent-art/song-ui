@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { Song } from './types';
 import { demoSongs } from './data/demoSongs';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'https://song-api-rrz0.onrender.com';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://song-api-1-23oa.onrender.com';
 const API = `${API_BASE}/ignacio/songs`;
 
 // In-memory store for when the backend is down
