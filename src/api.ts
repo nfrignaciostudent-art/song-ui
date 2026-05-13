@@ -10,6 +10,9 @@ let localSongs: Song[] = [...demoSongs];
 let nextId = Math.max(...localSongs.map(s => s.id || 0)) + 1;
 let useLocal = false;
 
+// Exported so App.tsx can reliably detect offline/demo mode
+export const isUsingLocalData = () => useLocal;
+
 // Extract YouTube video ID from various URL formats
 export function extractYoutubeId(url: string): string | null {
   if (!url) return null;

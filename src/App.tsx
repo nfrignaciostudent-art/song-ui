@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { Song } from './types';
-import { songApi } from './api';
+import { songApi, isUsingLocalData } from './api';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import SongCard from './components/SongCard';
@@ -36,8 +36,8 @@ function App() {
     try {
       const data = await songApi.getAll();
       setSongs(data);
-      // Check if we're using local/demo data
-      setIsOffline(data.length > 0 && data[0]?.id === 1 && data[0]?.title === 'Blinding Lights');
+      // Use the reliable flag from the API module
+      setIsOffline(isUsingLocalData());
     } catch {
       setError('Could not connect to the Song API. Make sure the backend is running.');
     } finally {
