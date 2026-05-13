@@ -35,8 +35,15 @@ function enrichSong(song: Song): Song {
 export const songApi = {
   getAll: async (): Promise<Song[]> => {
     try {
-      const response = await axios.get<Song[]>(API, { timeout: 8000 });
+      const response = await axios.get<Song[]>(API, { timeout: 10000 });
       const songs = response.data.map(enrichSong);
+      if (songs.length === 0) {
+        // Backend is up but DB is empty (e.g. Render cold-start wiped H2)
+        // Fall back to demo songs so the page is never blank
+        console.log('Backend returned empty list, using demo songs');
+        useLocal = true;
+        return [...localSongs];
+      }
       useLocal = false;
       return songs;
     } catch {
